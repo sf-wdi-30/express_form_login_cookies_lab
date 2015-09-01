@@ -1,21 +1,15 @@
 var express = require("express"),
-    app = express();
+    app = express(),
+    db = require("./models");
 
 var path = require("path"),
     views_path = path.join(process.cwd(), "views");
 
-/*
- * Data
- */
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 
-var mock_db = {
-  User: [
-    {
-      username: "anon",
-      password: "12345"
-    }
-  ]
-}
+app.use(bodyParser.urlencoded({extended: true})); // parse POSTed data
+app.use(cookieParser("Super Secret")); // parse cookie data
 
 /*
  * Routes
@@ -35,36 +29,52 @@ app.get("/signup", function(req, res){
   res.sendFile(signup_form);
 });
 
-app.get("/profile", function(req, res){
-  res.send(req.cookie);
-});
-
 /*
  * API Endpoints
  */
 
-app.post(["/signup", "/api/users"], function createUser(req, res){
-  console.log("Looks like you're trying to signup!");
-  // TODO: create new user
-  // TODO: login new user
-  // TODO: redirect to profile
-  res.redirect("/signup");
-});
-
 app.post(["/login", "/api/sessions"], function createSession(req, res){
   console.log("Looks like you're trying to login!");
-  // TODO: Authenticate user is who they say they are
-  // TODO: set cookie
-  // TODO: redirect to profile
+
+  var username = req.body.username;
+  var password = req.body.password;
+  // TODO#1: find the matching user in the database
+  // TODO#1: set a cookie named "guid" in the HTTP Response Header
+  //                             with the user's _id as the value
+  // TODO#1: redirect to the profile page
   res.redirect("/login");
+
 });
 
 app.get(["/logout", "/api/sessions"], function destroySession(req, res){
   console.log("Looks like you're trying to logout!");
-  // TODO: delete cookie
+  // TODO#2 clear the "guid" cookie from the HTTP Response Header
   res.redirect("/");
 });
 
+app.post(["/signup", "/api/users"], function createUser(req, res){
+  console.log("Looks like you're trying to signup!");
+
+  var username = req.body.username;
+  var password = req.body.password;
+  // TODO#3 create a new user
+  // TODO#3 set a cookie named "guid" in the HTTP Response Header
+  //                            with the user's _id as the value
+  // TODO#3 redirect to the profile page
+  res.redirect("/signup");
+
+});
+
+app.get("/api/profile", function showUser(req, res){
+  console.log("Looks like you're visiting the profile")
+  // TODO#4 grab the value of the "guid" cookie from the HTTP Request Header
+  // TODO#4 find the matching user in the database
+  var user = null; // placeholder
+  res.send({
+    request_headers: req.headers,
+    user: user || "NOT FOUND"
+  });
+});
 
 
 /*
