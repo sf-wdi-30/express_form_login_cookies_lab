@@ -4,6 +4,13 @@ var express = require("express"),
 var path = require("path"),
     views_path = path.join(process.cwd(), "views");
 
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+
+app.use(bodyParser.urlencoded({extended: true})); // parse POSTed data
+app.use(cookieParser()); // parse cookie data
+
+
 /*
  * Data
  */
@@ -36,35 +43,52 @@ app.get("/signup", function(req, res){
 });
 
 app.get("/profile", function(req, res){
-  res.send(req.cookie);
+  var guid = req.cookie.guid;
+  // TODO_4: only display the profile to logged in users
+  //            check their 'guid' cookie to verify authorization
+  res.send({
+    cookie: req.cookie,
+    user: guid ? mock_db.User[guid] : "NOT FOUND"
+  });
 });
 
 /*
  * API Endpoints
  */
 
-app.post(["/signup", "/api/users"], function createUser(req, res){
-  console.log("Looks like you're trying to signup!");
-  // TODO: create new user
-  // TODO: login new user
-  // TODO: redirect to profile
-  res.redirect("/signup");
-});
-
 app.post(["/login", "/api/sessions"], function createSession(req, res){
   console.log("Looks like you're trying to login!");
-  // TODO: Authenticate user is who they say they are
-  // TODO: set cookie
-  // TODO: redirect to profile
+  // TODO_1: Authenticate user is who they say they are
+  // TODO_1: Authorize user by setting a 'guid' cookie
+  // TODO_1: redirect to profile
   res.redirect("/login");
 });
 
 app.get(["/logout", "/api/sessions"], function destroySession(req, res){
   console.log("Looks like you're trying to logout!");
-  // TODO: delete cookie
+  // TODO_2: delete 'guid' cookie
   res.redirect("/");
 });
 
+app.post(["/signup", "/api/users"], function createUser(req, res){
+  console.log("Looks like you're trying to signup!");
+
+  var username = req.body.username;
+  var password = req.body.password;
+  if (username && password) {
+    mock_db.User.push({
+      _id: mock_db.User.length;
+      username: username,
+      password: password
+    });
+
+    // TODO_3: Authorize user by setting a 'guid' cookie to their _id
+    // TODO_3: redirect to profile
+
+  }
+
+  res.redirect("/signup");
+});
 
 
 /*
