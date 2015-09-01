@@ -41,9 +41,10 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
   db.User.findOne({username: username, password: password}, function(err, user){
     if ( user ) {
       res.cookie("guid", user._id, { signed: true });
-      return res.redirect("/profile")
+      res.redirect("/api/profile")
+    } else {
+      res.redirect("/login");
     }
-    res.redirect("/login");
   })
 
 });
@@ -63,10 +64,10 @@ app.post(["/signup", "/api/users"], function createUser(req, res){
   db.User.create({username: username, password: password}, function(err, user){
     if ( user ) {
       res.cookie("guid", user._id, { signed: true });
-      return res.redirect("/profile")
-    };
-
-    res.redirect("/signup");
+      res.redirect("/api/profile")
+    } else {
+      res.redirect("/signup");
+    }
   })
 
 });
