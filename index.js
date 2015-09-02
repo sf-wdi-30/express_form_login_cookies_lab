@@ -38,11 +38,12 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
 
   var username = req.body.username;
   var password = req.body.password;
-  db.User.findOne({username: username, password: password}, function(err, user){
+  db.User.authenticate(username, password, function(err, user){
     if ( user ) {
       res.cookie("guid", user._id, { signed: true });
       res.redirect("/api/profile")
     } else {
+      console.log(err);
       res.redirect("/login");
     }
   })
