@@ -67,7 +67,7 @@ Let's clean up our code a bit by refactoring our authentication logic into a Use
 
 ``` javascript
 userSchema.statics.authenticate = function(username, password, cb) {
-  this.find({username: username}, function(err, user){
+  this.findOne({username: username}, function(err, user){
       if ( user === null ){
         cb("Username does not exist", null);
       } else if ( user.password !== password ){

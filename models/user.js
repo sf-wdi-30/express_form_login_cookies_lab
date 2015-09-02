@@ -4,7 +4,8 @@ var mongoose = require("mongoose"),
 var userSchema = new Schema({
   username: {
     type: String,
-    required: true
+    required: true,
+    index: {unique: true} // uniqueness constraint
   },
   password: {
     type: String,
