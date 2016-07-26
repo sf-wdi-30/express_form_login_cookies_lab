@@ -1,18 +1,32 @@
+// require express and other modules
 var express = require("express"),
-    app = express(),
-    db = require("./models");
+    app = express();
 
 var path = require("path"),
     views_path = path.join(process.cwd(), "views");
 
+// parse incoming urlencoded form data in the HTTP Body
+// and populate the req.body object
 var bodyParser = require("body-parser");
-var cookieParser = require("cookie-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.urlencoded({extended: true})); // parse POSTed data
+// parse incoming cookies in the HTTP Header
+// and populate the req.cookies object
+var cookieParser = require("cookie-parser");
 app.use(cookieParser("Super Secret")); // parse cookie data
 
+/************
+ * DATABASE *
+ ************/
+
+var db = require("./models");
+
+/**********
+ * ROUTES *
+ **********/
+
 /*
- * Routes
+ * HTML Endpoints
  */
 
 app.get("/", function(req, res){
@@ -69,7 +83,8 @@ app.get("/api/profile", function showUser(req, res){
   console.log("Looks like you're visiting the profile")
   // TODO#4 grab the value of the "guid" cookie from the HTTP Request Header
   // TODO#4 find the matching user in the database
-  var user = null; // placeholder
+  // TODO#4 add the user to the response JSON below
+  var user = null; // change me
   res.send({
     request_headers: req.headers,
     user: user || "NOT FOUND"
@@ -77,9 +92,9 @@ app.get("/api/profile", function showUser(req, res){
 });
 
 
-/*
- * Server
- */
+/**********
+ * SERVER *
+ **********/
 
 app.listen(3000, function(){
   console.log("Server running on localhost:3000");

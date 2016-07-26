@@ -1,4 +1,4 @@
-## Form Login Lab
+# Form Login Lab
 
 In this lab you will gain familiarity with signing up, logging in, and logging out a user using forms & cookies. No AJAX.
 
@@ -13,7 +13,7 @@ In this lab you will gain familiarity with signing up, logging in, and logging o
 | POST | /signup, /api/users | create user |
 | GET | /api/profile | show user |
 
-\* please note that strictly speaking we should be using the HTTP `DELETE` method when destroying a session. Unforunately, forms do not support `DELETE` natively, and for our purposes it's more convenient to use `GET` since we can visit it easily in the browser. (See `method-override` middleware for more details.)
+> \* please note that strictly speaking we should be using the HTTP `DELETE` method when destroying a session. Unforunately, forms do not support `DELETE` natively, and for our purposes it's more convenient to use `GET` since we can visit it easily in the browser. (See `method-override` middleware for more details.)
 
 ## Challenge
 #### Setup
@@ -52,9 +52,7 @@ A signed cookie will look more like this:
 guid=s%3Aj%3A%2255e5330c44d8a10eafbab6b0%22.ExXb0Iuk4fh8VR1A1dNaibORrPxHDpJSjVYunsIw%2FXw
 ```
 
-Note that you can still read the original `_id`. _Signing a cookie !== encrypting a cookie._ The signature verifys that the message has not been altered, and vice-versa. You could think of it as being like an envelope with a wax seal. The seal says "this message has 140 characters". (Except that the seal is then encrypted with a secret phrase that only you, the application, knows!)
-
-![self description xkcd](http://imgs.xkcd.com/comics/self_description.png)
+Note that you can still read the original `_id`. _Signing a cookie !== encrypting a cookie._ The signature simply verifys that the message has not been tampered with. If any part of a signed cookie is modified, the server will detect that something fishy happened and reject the cookie.
 
 Can you figure out how to sign your cookies? Check out the express docs for [Response Cookies](http://expressjs.com/api.html#res.cookie) & [Signed Request Cookies](http://expressjs.com/api.html#req.signedCookies).
 
@@ -83,6 +81,6 @@ We can call this method on the `User` class as follows:
 
 ```
 User.authenticate("anon", "123", function(err, user){
-    //...
+    console.log("Succesfully authenticated", user.username);
 })
 ```
