@@ -1,7 +1,7 @@
 var db = require("./models");
 
 var new_user = {
-  username: "anon",
+  email: "anon",
   password: "123"
 }
 
