@@ -5,5 +5,23 @@
     "express": "^4.13.3",
     "mongoose": "^4.1.4",
     "nodemon": "^1.4.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "express_form_login_cookies_lab",
+  "description": "In this lab you will gain familiarity with securely signing up, logging in, and logging out a user using forms, cookies, and the bcrypt encryption package. No AJAX.",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sf-wdi-30/express_form_login_cookies_lab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sf-wdi-30/express_form_login_cookies_lab/issues"
+  },
+  "homepage": "https://github.com/sf-wdi-30/express_form_login_cookies_lab#readme"
 }
