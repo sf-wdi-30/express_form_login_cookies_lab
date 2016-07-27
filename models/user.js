@@ -4,11 +4,8 @@ var mongoose = require("mongoose"),
 // TODO#5 stop saving plain-text passwords in the database
 // var bcrypt = require('bcrypt');
 
-<<<<<<< HEAD
-var UserSchema = new Schema({
-=======
+
 var userSchema = new Schema({
->>>>>>> 4ab28ecfc23793b27431779a6324efc0568fa373
   email: {
     type: String,
     required: true,
