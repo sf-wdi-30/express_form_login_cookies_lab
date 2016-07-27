@@ -55,7 +55,8 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
 
   db.User.authenticate(email, password, function(err, foundUser) {
     if (err) {return console.log(err);}
-    res.cookie('guid',foundUser._id).redirect("/api/profile");
+    res.cookie('guid',foundUser._id)
+       .redirect("/api/profile");
   });
 
 });
@@ -63,7 +64,8 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
 app.get(["/logout", "/api/sessions"], function destroySession(req, res){
   console.log("Looks like you're trying to logout!");
 
-  res.clearCookie('guid').redirect("/login");
+  res.clearCookie('guid')
+     .redirect("/login");
 });
 
 app.post(["/signup", "/api/users"], function createUser(req, res){
@@ -74,7 +76,8 @@ app.post(["/signup", "/api/users"], function createUser(req, res){
 
   db.User.createSecure(email, password, function(err, newUser) {
     if (err) {return console.log(err);}
-    res.cookie('guid', newUser._id).redirect('/api/profile');
+    res.cookie('guid', newUser._id)
+       .redirect('/api/profile');
   });
 });
 
@@ -84,9 +87,8 @@ app.get("/api/profile", function showUser(req, res){
     console.log("User wasn't logged in!");
     res.redirect("/");
   } else {
-    console.log(req.cookies.guid);
-
-    db.User.findOne({_id: req.cookies.guid}, function(err, foundUser) {
+    var userId = req.cookies.guid;
+    db.User.findById(userId, function(err, foundUser) {
       console.log("Found this user: ", foundUser);
 
       var user = foundUser;
