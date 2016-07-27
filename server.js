@@ -1,6 +1,6 @@
 // require express and other modules
 var express = require("express"),
-    app = express();
+    app = express()
 
 var path = require("path"),
     views_path = path.join(process.cwd(), "views");
@@ -56,6 +56,7 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
   // TODO#1: set a cookie named "guid" in the HTTP Response Header
   //                             with the user's _id as the value
   // TODO#1: redirect to the profile page
+  // TODO#5: securely authenticate users
   res.redirect("/login");
 
 });
@@ -75,6 +76,7 @@ app.post(["/signup", "/api/users"], function createUser(req, res){
   // TODO#3 set a cookie named "guid" in the HTTP Response Header
   //                            with the user's _id as the value
   // TODO#3 redirect to the profile page
+  // TODO#5 create new users securely (don't just store plain-text passwords!)
   res.redirect("/signup");
 
 });
