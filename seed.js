@@ -1,7 +1,7 @@
 var db = require("./models");
 
 var new_user = {
-  username: "anon",
+  email: "anon",
   password: "123"
 };
 
@@ -18,5 +18,13 @@ db.User.remove({}, function(err){
     console.log(user);
     process.exit();
   });
+// // use this db call AFTER we install bcrypt
+  // db.User.createSecure(new_user.email, new_user.username, function(err, user){
+  //   if (err) { return console.log(err); }
+  //   console.log("---> One user added");
+  //   console.log(user);
+  //   process.exit();
+  // });
+
 
 });

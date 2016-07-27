@@ -1,6 +1,6 @@
 // require express and other modules
 var express = require("express"),
-    app = express()
+    app = express();
 
 var path = require("path"),
     views_path = path.join(process.cwd(), "views");
@@ -50,47 +50,57 @@ app.get("/signup", function(req, res){
 app.post(["/login", "/api/sessions"], function createSession(req, res){
   console.log("Looks like you're trying to login!");
 
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
   // TODO#1: find the matching user in the database
-  // TODO#1: set a cookie named "guid" in the HTTP Response Header
-  //                             with the user's _id as the value
-  // TODO#1: redirect to the profile page
+  console.log(req.body);
+  db.User.authenticate(email, password, function handleUser(err,succ){
+    if(err) {return console.log("ERROR: " , err);}
+    console.log("SUCCESS: ",succ);
+    res.cookie("guid", succ._id);
+    res.redirect('/api/profile');
+  });
+
   // TODO#5: securely authenticate users
-  res.redirect("/login");
 
 });
 
 app.get(["/logout", "/api/sessions"], function destroySession(req, res){
   console.log("Looks like you're trying to logout!");
-  // TODO#2 clear the "guid" cookie from the HTTP Response Header
+  res.clearCookie("guid");
   res.redirect("/");
 });
 
 app.post(["/signup", "/api/users"], function createUser(req, res){
   console.log("Looks like you're trying to signup!");
 
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
-  // TODO#3 create a new user
-  // TODO#3 set a cookie named "guid" in the HTTP Response Header
-  //                            with the user's _id as the value
-  // TODO#3 redirect to the profile page
+
+  db.User.createSecure(email, password, function newUser(err, succ) {
+    if(err) {return console.log("ERROR: " ,err);}
+    console.log("SUCCESS: ",succ);
+    res.cookie("guid", succ._id);
+    res.redirect('/api/profile');
+  });
   // TODO#5 create new users securely (don't just store plain-text passwords!)
-  res.redirect("/signup");
+  //res.redirect("/signup");
 
 });
 
 app.get("/api/profile", function showUser(req, res){
-  console.log("Looks like you're visiting the profile")
-  // TODO#4 grab the value of the "guid" cookie from the HTTP Request Header
-  // TODO#4 find the matching user in the database
-  // TODO#4 add the user to the response JSON below
-  var user = null; // change me
-  res.send({
-    request_headers: req.headers,
-    user: user || "NOT FOUND"
+  console.log("Looks like you're visiting the profile");
+  console.log("COOKIE FROM REQ: ", req.cookies.guid);
+  userId = req.cookies.guid;
+  db.User.findById(userId, function findByCookie(err,succ){
+    var user = succ; // change me
+    res.send({
+      request_headers: req.headers,
+      user: user || "NOT FOUND"
+    });
+
   });
+
 });
 
 
