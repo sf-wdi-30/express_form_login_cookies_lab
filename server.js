@@ -1,4 +1,4 @@
-/ require express and other modules
+// require express and other modules
 var express = require("express"),
    app = express();
 
