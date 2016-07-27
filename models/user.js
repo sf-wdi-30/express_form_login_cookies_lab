@@ -5,7 +5,7 @@ var mongoose = require("mongoose"),
 // var bcrypt = require('bcrypt');
 
 var userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
     index: {unique: true} // uniqueness constraint
