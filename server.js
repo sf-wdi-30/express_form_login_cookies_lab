@@ -67,7 +67,7 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
 app.get(["/logout", "/api/sessions"], function destroySession(req, res){
   console.log("Looks like you're trying to logout!");
   // TODO#2 clear the "guid" cookie from the HTTP Response Header
-  res.redirect("/");
+  res.clearCookie('guid').redirect("/login");
 });
 
 app.post(["/signup", "/api/users"], function createUser(req, res){
