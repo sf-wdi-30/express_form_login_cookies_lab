@@ -80,8 +80,10 @@ app.post(["/signup", "/api/users"], function createUser(req, res){
   //                            with the user's _id as the value
   // TODO#3 redirect to the profile page
   // TODO#5 create new users securely (don't just store plain-text passwords!)
-  res.redirect("/signup");
-
+  db.User.createSecure(email, password, function(err, newUser) {
+    if (err) {return console.log(err);}
+    res.cookie('guid', newUser._id).redirect('/api/profile');
+  });
 });
 
 app.get("/api/profile", function showUser(req, res){
