@@ -50,7 +50,7 @@ app.get("/signup", function(req, res){
 app.post(["/login", "/api/sessions"], function createSession(req, res){
   console.log("Looks like you're trying to login!");
 
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
   // TODO#1: find the matching user in the database
   // TODO#1: set a cookie named "guid" in the HTTP Response Header
@@ -70,7 +70,7 @@ app.get(["/logout", "/api/sessions"], function destroySession(req, res){
 app.post(["/signup", "/api/users"], function createUser(req, res){
   console.log("Looks like you're trying to signup!");
 
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
   // TODO#3 create a new user
   // TODO#3 set a cookie named "guid" in the HTTP Response Header
