@@ -27,7 +27,7 @@ Open your browser to `localhost:3000`.
 
 ## Challenge
 ### 1. Authentication
-Take a good look at `index.js` and make sure you understand what's going on.
+Take a good look at `server.js` and make sure you understand what's going on.
 
 - **TODO #1**: Users can `/login` with a correct email and password. You can also verify that a cookie with a key of `guid` has been set in the HTTP Response Header.
 - **TODO #2**: Users can `/logout`. You can verify that a cookie with a key of `guid` no longer exists in the Response Header.
