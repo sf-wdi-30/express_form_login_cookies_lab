@@ -19,8 +19,8 @@ In this lab you will gain familiarity with securely signing up, logging in, and 
 Clone this repo. Install node packages. Run the database and a local server.
 ``` bash
 npm install
-node seed.js # seed the database
 mongod # do this in a separate terminal tab/window
+node seed.js # seed the database
 nodemon # or `node index.js`
 ```
 
