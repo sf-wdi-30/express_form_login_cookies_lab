@@ -4,7 +4,7 @@ var mongoose = require("mongoose"),
 // TODO#5 stop saving plain-text passwords in the database
 // var bcrypt = require('bcrypt');
 
-var userSchema = new Schema({
+var UserSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -63,6 +63,6 @@ var userSchema = new Schema({
 // };
 
 
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('User', UserSchema);
 
 module.exports = User;
