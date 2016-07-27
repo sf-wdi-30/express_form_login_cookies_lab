@@ -57,7 +57,7 @@ var mongoose = require("mongoose"),
 In `/models/user.js` rename the `password` field to `passwordDigest`:
 
 ```js
-var userSchema = new Schema({
+var UserSchema = new Schema({
   username: {
     type: String,
     required: true,
