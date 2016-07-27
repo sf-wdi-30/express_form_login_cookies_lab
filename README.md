@@ -7,7 +7,6 @@ In this lab you will gain familiarity with securely signing up, logging in, and 
 |:-----|:-----|:------------|
 | GET | /signup | show signup form |
 | GET | /login | show login form |
-| GET | /login | show login form |
 | POST | /login, /api/sessions | create session |
 | GET\* | /logout, /api/sessions | destroy session |
 | POST | /signup, /api/users | create user |
