@@ -20,7 +20,7 @@ Clone this repo. Install node packages. Run the database and a local server.
 npm install
 node seed.js # seed the database
 mongod # do this in a separate terminal tab/window
-nodemon # or `node index.js`
+nodemon # or `node server.js`
 ```
 
 Open your browser to `localhost:3000`.
