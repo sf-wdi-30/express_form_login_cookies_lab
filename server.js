@@ -57,7 +57,10 @@ app.post(["/login", "/api/sessions"], function createSession(req, res){
   //                             with the user's _id as the value
   // TODO#1: redirect to the profile page
   // TODO#5: securely authenticate users
-  res.redirect("/login");
+  db.User.authenticate(email, password, function(err, foundUser) {
+    if (err) {return console.log(err);}
+    res.cookie('guid',foundUser._id).redirect("/api/profile");
+  });
 
 });
 
