@@ -12,11 +12,11 @@ db.User.remove({}, function(err){
   console.log("---> Database Wiped");
 
   // Seed Database
-  db.User.create(new_user, function(err, user){
-    if (err) { return console.log(err); };
-    console.log("---> One user added")
+  db.User.createSecure(new_user['email'], new_user['password'], function(err, user) {
+    if (err) { return console.log(err); }
+    console.log("---> One user added");
     console.log(user);
     process.exit();
-  })
+  });
 
 })
