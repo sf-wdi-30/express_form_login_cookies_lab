@@ -1,6 +1,5 @@
 var mongoose = require("mongoose"),
     Schema = mongoose.Schema,
-    // TODO#5 stop saving plain-text passwords in the database
     bcrypt = require('bcrypt');
 
 
@@ -10,7 +9,7 @@ var UserSchema = new Schema({
     required: true,
     index: {unique: true} // uniqueness constraint
   },
-  passwordDigest: {       // TODO#5 VERY BAD, plain-text password
+  passwordDigest: {
     type: String,
     required: true
   }
