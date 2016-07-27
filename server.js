@@ -87,15 +87,24 @@ app.post(["/signup", "/api/users"], function createUser(req, res){
 });
 
 app.get("/api/profile", function showUser(req, res){
-  console.log("Looks like you're visiting the profile")
-  // TODO#4 grab the value of the "guid" cookie from the HTTP Request Header
-  // TODO#4 find the matching user in the database
-  // TODO#4 add the user to the response JSON below
-  var user = null; // change me
-  res.send({
-    request_headers: req.headers,
-    user: user || "NOT FOUND"
-  });
+  console.log("Looks like you're visiting the profile");
+  if (!req.cookies.guid) {
+    console.log("User wasn't logged in!");
+    res.redirect("/");
+  } else {
+    // TODO#4 grab the value of the "guid" cookie from the HTTP Request Header
+    // TODO#4 find the matching user in the database
+    console.log(req.cookies.guid);
+    db.User.findOne({_id: req.cookies.guid}, function(err, foundUser) {
+      console.log("Found this user: ", foundUser);
+    // TODO#4 add the user to the response JSON below
+      var user = foundUser;
+      res.send({
+        request_headers: req.headers,
+        user: user || "NOT FOUND"
+      });
+    });
+  }
 });
 
 
