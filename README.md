@@ -30,7 +30,7 @@ Open your browser to `localhost:3000`.
 ### 1. Authentication
 Take a good look at `index.js` and make sure you understand what's going on.
 
-- **TODO #1**: Users can `/login` with a correct username and password. You can also verify that a cookie with a key of `guid` has been set in the HTTP Response Header.
+- **TODO #1**: Users can `/login` with a correct email and password. You can also verify that a cookie with a key of `guid` has been set in the HTTP Response Header.
 - **TODO #2**: Users can `/logout`. You can verify that a cookie with a key of `guid` no longer exists in the Response Header.
 - **TODO #3**: Visitors can `/signup`. You can verify that a new user has been added, you can see their `guid` in the Response Header.
 
@@ -59,7 +59,7 @@ In `/models/user.js` rename the `password` field to `passwordDigest`:
 
 ```js
 var userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
     index: {unique: true}
